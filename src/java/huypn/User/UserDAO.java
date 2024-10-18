@@ -25,17 +25,17 @@ public class UserDAO implements Serializable{
         UserDTO result=null;
         try{
             if(con!=null){
-                 String sql="select lastname,isAdmin "
-                            + "from Registration "
-                            + "where username=? "
-                            + "and password=?";
+                 String sql="select Username,Role "
+                            + "from PRJMovieCenter "
+                            + "where Username=? "
+                            + "and Passwordhash=?";
                 stm=con.prepareStatement(sql);
                 stm.setString(1, username);
                 stm.setString(2, password);
                 rs=stm.executeQuery();
                 if(rs.next()){
-                    String fullname=rs.getString("lastname");
-                    boolean role=rs.getBoolean("isAdmin");
+                    String fullname=rs.getString("Username");
+                    boolean role=rs.getBoolean("Role");
                     result=new UserDTO(username, "", fullname, role);
                 }
             }

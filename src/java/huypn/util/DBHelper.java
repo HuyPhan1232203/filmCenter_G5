@@ -21,7 +21,7 @@ public class DBHelper {
         //2. Create connection string to DBMS. Syntax: protocol://ip:port;databaseName=
         String url="jdbc:sqlserver://"  //protocol
                 + "localhost:1433;"   //container
-                + "databaseName=Registration";
+                + "databaseName=PRJMovieCenter";
         //3. get connection from Driver Manager
         Connection con= DriverManager.getConnection(url, "sa", "12345");
         //4.return con
