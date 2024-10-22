@@ -12,16 +12,16 @@ import java.io.Serializable;
  * @author hien
  */
 public class UserDTO implements Serializable{
-    String username,password,lastname;
+    String username,password,phoneNumber;
     boolean role;
 
     public UserDTO() {
     }
 
-    public UserDTO(String username, String password, String lastname, boolean role) {
+    public UserDTO(String username, String password, String phoneNumber, boolean role) {
         this.username = username;
         this.password = password;
-        this.lastname = lastname;
+        this.phoneNumber = phoneNumber;
         this.role = role;
     }
 
@@ -41,12 +41,12 @@ public class UserDTO implements Serializable{
         this.password = password;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public boolean isRole() {
@@ -56,5 +56,6 @@ public class UserDTO implements Serializable{
     public void setRole(boolean role) {
         this.role = role;
     }
+    
     
 }
