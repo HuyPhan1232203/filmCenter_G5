@@ -5,8 +5,12 @@
  */
 package huypn.controller;
 
+import bachnph.Movie.MovieDAO;
+import bachnph.Movie.MovieDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,12 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author hien
+ * @author Admin
  */
-public class DispatchServlet extends HttpServlet {
-    private final String LOGIN_PAGE="login.html";
-    private final String LOGIN_CONTROLLER="LoginServlet";
-    private final String MOVIE_CONTROLLER="MovieServlet";
+@WebServlet(name = "MovieServlet", urlPatterns = {"/MovieServlet"})
+public class MovieServlet extends HttpServlet {
+private final String MOVIE_PAGE = "managemMovie.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,21 +37,20 @@ public class DispatchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       String button = request.getParameter("btAction");
-       String url=LOGIN_PAGE;
-       try{
-           if(button==null){
-               
-           }else if(button.equals("Login")){
-               url=LOGIN_CONTROLLER;
-           
-           }else if(button.equals("Go to Manage Movie")){
-               url=MOVIE_CONTROLLER;
-           }
-       }finally{
-           RequestDispatcher rd=request.getRequestDispatcher(url);
-           rd.forward(request, response);
-       }
+        String url=MOVIE_PAGE;
+        try{
+            System.out.println("asdkjajbsdijabs");
+            MovieDAO dao=new MovieDAO();
+            dao.showAllMovie();
+            List<MovieDTO> result=dao.getMovie();
+            System.out.println(result);
+        }catch(ClassNotFoundException| SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            RequestDispatcher rd=request.getRequestDispatcher(url);
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

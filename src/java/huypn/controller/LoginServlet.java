@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginServlet extends HttpServlet {
     private final String INVALID_PAGE="invalid.html";
     private final String HOME_PAGE="home.jsp";
+    private final String ADMIN_PAGE="adminMain.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,10 +46,13 @@ public class LoginServlet extends HttpServlet {
             UserDAO dao=new UserDAO();
             UserDTO dto =dao.checkLogin(username, password);
             if(dto!=null){
-                System.out.println("asdasjbk");
-                url=HOME_PAGE;
+                if(dto.isRole() == false){
+                    url=HOME_PAGE;
+                }
+                if(dto.isRole() == true){
+                    url=ADMIN_PAGE;
             }
-            System.out.println("nothing");
+            }
         }catch(SQLException e){
             e.printStackTrace();
         }catch(ClassNotFoundException e){

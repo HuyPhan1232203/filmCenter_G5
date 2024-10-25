@@ -23,7 +23,7 @@ public class DBHelper {
                 + "localhost:1433;"   //container
                 + "databaseName=PRJ_MovieCenter";
         //3. get connection from Driver Manager
-        Connection con= DriverManager.getConnection(url, "sa", "12345");
+        Connection con= DriverManager.getConnection(url, "sa", "12345678");
         //4.return con
         return con;
     }
