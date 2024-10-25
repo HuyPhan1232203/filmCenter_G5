@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "MovieServlet", urlPatterns = {"/MovieServlet"})
 public class MovieServlet extends HttpServlet {
-private final String MOVIE_PAGE = "managemMovie.jsp";
+private final String MOVIE_PAGE = "manageMovies.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
