@@ -35,6 +35,9 @@ public class DispatchServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
        String button = request.getParameter("btAction");
+       
+       String a;
+       //aaaaaaaaaaaaaaaaaaaa
        String url=LOGIN_PAGE;
        try{
            if(button==null){

@@ -19,11 +19,12 @@ import java.util.List;
  * @author Admin
  */
 public class MovieDAO {
+    String a;
     private List<MovieDTO> movie;
     public List<MovieDTO> getMovie() {
         
         return movie;
-
+        
     }
 
     public MovieDTO showAllMovie()
