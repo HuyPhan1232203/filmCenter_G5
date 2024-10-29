@@ -1,0 +1,58 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package huypn.User;
+
+import com.sun.corba.se.spi.presentation.rmi.StubAdapter;
+import huypn.util.DBHelper;
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.websocket.Session;
+
+/**
+ *
+ * @author hien
+ */
+public class UserDAO implements Serializable{
+    public UserDTO checkLogin(String username,String password)
+            throws ClassNotFoundException,SQLException{
+        Connection con=DBHelper.getConnection();
+        PreparedStatement stm=null;
+        ResultSet rs=null;
+        UserDTO result=null;
+        try{
+            if(con!=null){
+                String sql="select Username,Role,Phonenumber "
+                            + "from dbo.Users "
+                            + "where Username=? "
+                            + "and Passwordhash=?";
+                stm=con.prepareStatement(sql);
+                stm.setString(1, username);
+                stm.setString(2, password);
+                rs=stm.executeQuery();
+                if(rs.next()){
+                    String fullname=rs.getString("Username");
+                    String phone=rs.getString("Phonenumber");
+                    boolean role=rs.getBoolean("Role");
+                    result=new UserDTO(username, "", fullname, role);
+                }
+            }
+        }finally{
+            if(rs!=null){
+                rs.close();
+            }
+            if(stm!=null){
+                stm.close();
+            }
+            if(con!=null){
+                con.close();
+            }
+        }
+        return result;
+    }
+}
