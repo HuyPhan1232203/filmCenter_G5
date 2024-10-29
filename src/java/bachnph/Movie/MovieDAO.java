@@ -19,9 +19,11 @@ import java.util.List;
  * @author Admin
  */
 public class MovieDAO {
+
     private List<MovieDTO> movie;
+
     public List<MovieDTO> getMovie() {
-        
+
         return movie;
 
     }
@@ -38,14 +40,14 @@ public class MovieDAO {
                 stm = con.prepareStatement(sql);
 
                 rs = stm.executeQuery();
-                
+
                 while (rs.next()) {
-                    int MovieID=rs.getInt("MovieID");
-                    String MovieName=rs.getString("MovieName");
-                    String MovieImage=rs.getString("MovieImage");
-                    MovieDTO dto= new MovieDTO(MovieID, MovieName, MovieImage);
-                    if(this.movie==null){
-                        this.movie=new ArrayList<>();
+                    int MovieID = rs.getInt("MovieID");
+                    String MovieName = rs.getString("MovieName");
+                    String MovieImage = rs.getString("MovieImage");
+                    MovieDTO dto = new MovieDTO(MovieID, MovieName, MovieImage);
+                    if (this.movie == null) {
+                        this.movie = new ArrayList<>();
                     }
                     movie.add(dto);
                 }
@@ -62,5 +64,44 @@ public class MovieDAO {
             }
         }
         return result;
+    }
+
+    public void addMovie(MovieDTO movie) throws ClassNotFoundException, SQLException {
+        String sql = " INSERT INTO dbo.Movies(MovieID, MovieName, MovieImage) VALUES(?,?,?) ";
+        Connection con = DBHelper.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        MovieDTO result = null;
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, movie.getMovieID());
+            stmt.setString(2, movie.getMovieName());
+            stmt.setString(3, movie.getMovieImage());
+            stmt.executeUpdate();
+        }
+    }
+
+    public void updateMovie(MovieDTO movie) throws ClassNotFoundException, SQLException {
+        String sql = " UPDATE dbo.Movies SET MovieID = ?, MovieName = ?, MovieImage = ? WHERE MovieID = ? ";
+        Connection con = DBHelper.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        MovieDTO result = null;
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, movie.getMovieID());
+            stmt.setString(2, movie.getMovieName());
+            stmt.setString(3, movie.getMovieImage());
+            stmt.executeUpdate();
+        }
+    }
+     public void deleteMovie(int id) throws ClassNotFoundException, SQLException {
+        String sql = " DELETE FROM dbo.Movies WHERE MovieID = ? ";
+        Connection con = DBHelper.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        MovieDTO result = null;
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
     }
 }
