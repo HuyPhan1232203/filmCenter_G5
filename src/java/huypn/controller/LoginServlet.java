@@ -51,6 +51,7 @@ public class LoginServlet extends HttpServlet {
                 if(dto.isRole() == true){
                     url=ADMIN_PAGE;
             }
+                
             }
         }catch(SQLException e){
             e.printStackTrace();

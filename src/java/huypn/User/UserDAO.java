@@ -5,14 +5,12 @@
  */
 package huypn.User;
 
-import com.sun.corba.se.spi.presentation.rmi.StubAdapter;
 import huypn.util.DBHelper;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.websocket.Session;
 
 /**
  *
