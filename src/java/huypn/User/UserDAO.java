@@ -55,4 +55,39 @@ public class UserDAO implements Serializable{
         }
         return result;
     }
+    public boolean checkSignUp(String username,String password,String number,boolean role)
+            throws ClassNotFoundException,SQLException{
+        Connection con=DBHelper.getConnection();
+        PreparedStatement stm=null;
+        ResultSet rs=null;
+        UserDTO result=null;
+        try{
+            if(con!=null){
+                String sql="Insert into dbo.Users (Username,Phonenumber,Passwordhash,Role) "
+                        + "Values (?,?,?,?)";
+                stm=con.prepareStatement(sql);
+                stm.setString(1, username);
+                stm.setString(2, number);
+                stm.setString(3, password);
+                stm.setBoolean(4, role);
+                int affectedRow=stm.executeUpdate();
+                if(affectedRow>0){
+                    return true;
+                }
+                
+            }
+            
+        }finally{
+            if(rs!=null){
+                rs.close();
+            }
+            if(stm!=null){
+                stm.close();
+            }
+            if(con!=null){
+                con.close();
+            }
+        }
+        return false;
+    }
 }

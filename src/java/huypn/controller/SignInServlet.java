@@ -5,8 +5,10 @@
  */
 package huypn.controller;
 
+import huypn.User.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,11 +20,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hien
  */
-public class DispatchServlet extends HttpServlet {
-    private final String LOGIN_PAGE="login.html";
-    private final String LOGIN_CONTROLLER="LoginServlet";
-    private final String MOVIE_CONTROLLER="MovieServlet";
-    private final String SIGNUP_CONTROLLER="SignInServlet";
+@WebServlet(name = "SignInServlet", urlPatterns = {"/SignInServlet"})
+public class SignInServlet extends HttpServlet {
+private final String LOGIN_PAGE="login.html";
+private final String SIGNUP_PAGE="signUp.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,21 +37,24 @@ public class DispatchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       String button = request.getParameter("btAction");
-       String url=LOGIN_PAGE;
+        String url=SIGNUP_PAGE;
+        System.out.println("Sign in");
+        String txtUsername=request.getParameter("txtUsername");
+        String txtPhone=request.getParameter("txtPhone");
+        String txtPassword=request.getParameter("txtPassword");
+        String txtRole=request.getParameter("txtRole");
+        boolean result;
        try{
-           if(button==null){
-               
-           }else if(button.equals("Login")){
-               url=LOGIN_CONTROLLER;
-           
-           }else if(button.equals("Go to Manage Movie")){
-               url=MOVIE_CONTROLLER;
+           boolean role=Boolean.parseBoolean(txtRole);
+           UserDAO dao=new UserDAO();
+           result=dao.checkSignUp(txtUsername, txtPassword, txtPhone, role);
+           if(result){
+               url=LOGIN_PAGE;
            }
-          else if(button.equals("Sign Up")){
-               url=SIGNUP_CONTROLLER;
-           }
-       }finally{
+       }catch(ClassNotFoundException|SQLException e){
+           System.out.println(e);
+       }
+       finally{
            RequestDispatcher rd=request.getRequestDispatcher(url);
            rd.forward(request, response);
        }

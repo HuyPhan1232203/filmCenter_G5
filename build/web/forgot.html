@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Center - Login</title>
+    <title>Forgot Password</title>
     <style>
         /* General reset */
         * {
@@ -25,8 +25,8 @@
             color: #fff;
         }
 
-        /* Login container styling */
-        .login-container {
+        /* Forgot password container styling */
+        .forgot-password-container {
             background: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 8px;
@@ -36,15 +36,14 @@
         }
 
         /* Title styling */
-        .login-container h1 {
+        .forgot-password-container h1 {
             margin-bottom: 20px;
             font-size: 24px;
             color: #FFD700; /* Gold color for movie theme */
         }
 
         /* Form input styling */
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
+        .forgot-password-container input[type="email"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -56,8 +55,7 @@
         }
 
         /* Button styling */
-        .login-container input[type="submit"],
-        .login-container input[type="reset"] {
+        .forgot-password-container input[type="submit"] {
             width: 100%;
             padding: 10px;
             margin-top: 10px;
@@ -70,40 +68,38 @@
             font-size: 16px;
         }
 
-        .login-container input[type="submit"]:hover,
-        .login-container input[type="reset"]:hover {
+        .forgot-password-container input[type="submit"]:hover {
             background: #ffdd44;
         }
 
         /* Additional link styling */
-        .login-container p {
+        .forgot-password-container p {
             margin-top: 15px;
             font-size: 14px;
             color: #ccc;
         }
 
-        .login-container a {
+        .forgot-password-container a {
             color: #FFD700;
             text-decoration: none;
         }
 
-        .login-container a:hover {
+        .forgot-password-container a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <div class="login-container">
-        <h1>Movie Center Login</h1>
-        <form action="DispatchServlet" method="POST">
-            <input type="text" name="txtUsername" placeholder="Username" required>
-            <input type="password" name="txtPassword" placeholder="Password" required>
-            <input type="submit" value="Login" name="btAction">
-            <input type="reset" value="Reset">
+    <div class="forgot-password-container">
+        <h1>Forgot Password</h1>
+        <p>Enter your email to receive a reset link</p>
+        <form action="SendResetLinkServlet" method="POST">
+            <input type="email" name="txtEmail" placeholder="Email Address" required>
+            <input type="submit" value="Send Reset Link">
         </form>
-        <p>Forgot your password? <a href="forgot.html">Click here</a></p>
-        <p>Not a member? <a href="signUp.jsp">Sign up now</a></p>
+        <p><a href="login.html">Back to Login</a></p>
     </div>
+
 </body>
 </html>

@@ -42,7 +42,6 @@ public class LoginServlet extends HttpServlet {
         String password=request.getParameter("txtPassword");
         String url=INVALID_PAGE;
         try{
-            System.out.println("check");
             UserDAO dao=new UserDAO();
             UserDTO dto =dao.checkLogin(username, password);
             if(dto!=null){

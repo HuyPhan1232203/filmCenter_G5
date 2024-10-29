@@ -1,22 +1,109 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Login</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h1>Login Page</h1>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Center - Login</title>
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Background styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://example.com/movie-background.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+
+        /* Login container styling */
+        .login-container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+            max-width: 350px;
+            text-align: center;
+        }
+
+        /* Title styling */
+        .login-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #FFD700; /* Gold color for movie theme */
+        }
+
+        /* Form input styling */
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #FFD700;
+            border-radius: 4px;
+            background: #222;
+            color: #FFD700;
+            font-size: 16px;
+        }
+
+        /* Button styling */
+        .login-container input[type="submit"],
+        .login-container input[type="reset"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: #FFD700;
+            border: none;
+            border-radius: 4px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-container input[type="submit"]:hover,
+        .login-container input[type="reset"]:hover {
+            background: #ffdd44;
+        }
+
+        /* Additional link styling */
+        .login-container p {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .login-container a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>Movie Center Login</h1>
         <form action="DispatchServlet" method="POST">
-            Username <input type="text" name="txtUsername" value="" /><br/>            
-            Password <input type="password" name="txtPassword" value="" /><br/>
-            <input type="submit" value="Login" name="btAction" />
-            <input type="reset" value="Reset" />
-        </form><br/>
-    </body>
+            <input type="text" name="txtUsername" placeholder="Username" required>
+            <input type="password" name="txtPassword" placeholder="Password" required>
+            <input type="submit" value="Login" name="btAction">
+            <input type="reset" value="Reset">
+        </form>
+        <p>Forgot your password? <a href="forgot.html">Click here</a></p>
+        <p>Not a member? <a href="signUp.jsp">Sign up now</a></p>
+    </div>
+</body>
 </html>
