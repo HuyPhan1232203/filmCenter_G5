@@ -5,7 +5,7 @@
  */
 package huypn.User;
 
-import com.sun.corba.se.spi.presentation.rmi.StubAdapter;
+
 import huypn.util.DBHelper;
 import java.io.Serializable;
 import java.sql.Connection;
