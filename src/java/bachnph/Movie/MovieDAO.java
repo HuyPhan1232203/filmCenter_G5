@@ -49,16 +49,16 @@ public class MovieDAO {
 
                 while (rs.next()) {
                     int MovieID = rs.getInt("MovieID");
-                    String MovieTitle = rs.getString("MovieTitle");
+                    String MovieTitle = rs.getString("Title");
                     String MovieName = rs.getString("MovieName");
-                    String Genre = rs.getString("MovieGenre");
-                    int Duration = rs.getInt("MovieDuration");
-                    String Synopsis = rs.getString("MovieSynopsis");               
+                    String Genre = rs.getString("Genre");
+                    int Duration = rs.getInt("Duration");
+                    String Synopsis = rs.getString("Synopsis");               
                     String MovieImage = rs.getString("MovieImage");
                     MovieDTO dto = new MovieDTO(MovieID, MovieName, MovieImage, Duration, MovieTitle, Genre, Synopsis);
-                    if (this.movieList == null) {
+                    /*if (this.movieList == null) {
                         this.movieList = new ArrayList<>();
-                    }
+                    }*/
                     movieList.add(dto);
                 }
             }
