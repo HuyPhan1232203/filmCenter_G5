@@ -5,8 +5,10 @@
  */
 package huypn.controller;
 
+import bachnph.Movie.MovieDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,15 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author hien
+ * @author Admin
  */
-public class DispatchServlet extends HttpServlet {
-    private final String LOGIN_PAGE="login.html";
-    private final String LOGIN_CONTROLLER="LoginServlet";
-    private final String MOVIE_CONTROLLER="MovieServlet";
-    private final String SIGNUP_CONTROLLER="SignInServlet";
-    private final String MOVIECREATE_CONTROLLER="MovieCreateServlet";
-    
+@WebServlet(name = "MovieCreateServlet", urlPatterns = {"/MovieCreateServlet"})
+public class MovieCreateServlet extends HttpServlet {
+private final String MANAGEMOVIE_PAGE= "manageMovies.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,28 +34,33 @@ public class DispatchServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
-       String button = request.getParameter("btAction");
-       String url=LOGIN_PAGE;
-       try{
-           if(button==null){
-               
-           }else if(button.equals("Login")){
-               url=LOGIN_CONTROLLER;
-           
-           }else if(button.equals("Go to Manage Movie")){
-               url=MOVIE_CONTROLLER;
-           }
-          else if(button.equals("Sign Up")){
-               url=SIGNUP_CONTROLLER;
-           }
-          else if(button.equals("Add Movie")){
-               url=MOVIECREATE_CONTROLLER;
-           }
-       }finally{
-           RequestDispatcher rd=request.getRequestDispatcher(url);
-           rd.forward(request, response);
-       }
+        boolean result;
+        String url= MANAGEMOVIE_PAGE;
+        try{
+            String movieName = request.getParameter("movieName");
+            String movieImage = request.getParameter("movieImage");
+            String movieTitle = request.getParameter("movieTitle");
+            String movieGenre = request.getParameter("movieGenre");
+            String movieDuration = request.getParameter("movieDuration");
+            String movieSynopsis = request.getParameter("movieSynopsis");
+            MovieDAO dao= new MovieDAO();
+            int intDuration = Integer.parseInt(movieDuration);
+            
+            result= dao.addMovie(movieName, movieTitle, movieImage, movieGenre, intDuration, movieSynopsis);
+            if(result == false){
+                url= "invalid.html";
+            }
+        }catch(ClassNotFoundException ex){
+            System.out.println("Class not found" + ex.getMessage());
+        }catch(SQLException e){
+            System.out.println("Sql Exception" +e.getMessage());
+        }
+        finally{
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

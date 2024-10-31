@@ -5,9 +5,13 @@
  */
 package huypn.controller;
 
+import bachnph.Movie.MovieDAO;
+import bachnph.Movie.MovieDTO;
+import bachnph.Movie.MovieDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,15 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author hien
+ * @author Admin
  */
-public class DispatchServlet extends HttpServlet {
-    private final String LOGIN_PAGE="login.html";
-    private final String LOGIN_CONTROLLER="LoginServlet";
-    private final String MOVIE_CONTROLLER="MovieServlet";
-    private final String SIGNUP_CONTROLLER="SignInServlet";
-    private final String MOVIECREATE_CONTROLLER="MovieCreateServlet";
-    
+@WebServlet(name = "MovieListServlet", urlPatterns = {"/MovieListServlet"})
+public class MovieListServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,27 +37,16 @@ public class DispatchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       String button = request.getParameter("btAction");
-       String url=LOGIN_PAGE;
-       try{
-           if(button==null){
-               
-           }else if(button.equals("Login")){
-               url=LOGIN_CONTROLLER;
-           
-           }else if(button.equals("Go to Manage Movie")){
-               url=MOVIE_CONTROLLER;
-           }
-          else if(button.equals("Sign Up")){
-               url=SIGNUP_CONTROLLER;
-           }
-          else if(button.equals("Add Movie")){
-               url=MOVIECREATE_CONTROLLER;
-           }
-       }finally{
-           RequestDispatcher rd=request.getRequestDispatcher(url);
-           rd.forward(request, response);
-       }
+        MovieDAO movieDAO = new MovieDAO();
+        ArrayList<MovieDTO> movieList = new ArrayList<>();
+        try {
+            movieList = movieDAO.showAllMovie();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        request.setAttribute("movieList", movieList);
+        
+        request.getRequestDispatcher("mangeMovies.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -4,6 +4,9 @@
     Author     : Admin
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="bachnph.Movie.MovieDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,46 +76,65 @@
     <h1>Manage Movies</h1>
 
     <!-- Form to Add Movie -->
-    <form id="addMovieForm" onsubmit="addMovie(event)">
+    <form id="addMovieForm" onsubmit="addMovie(event)" action="DispatchServlet">
         <h2>Add Movie</h2>
         <label for="movieTitle">Title:</label>
-        <input type="text" id="movieTitle" required>
+        <input name="movieTitle" type="text" id="movieTitle" required>
 
-        <label for="movieDirector">Director:</label>
-        <input type="text" id="movieDirector" required>
+        <label for="movieName">Name:</label>
+        <input name="movieName" type="text" id="movieDirector" required>
 
         <label for="movieGenre">Genre:</label>
-        <input type="text" id="movieGenre" required>
+        <input name="movieGenre" type="text" id="movieGenre" required>
 
         <label for="movieDuration">Duration (mins):</label>
-        <input type="number" id="movieDuration" min="0" required>
+        <input name="movieDuration" type="number" id="movieDuration" min="0" required>
 
         <label for="movieDescription">Description:</label>
-        <textarea id="movieDescription" rows="3"></textarea>
+        <textarea name="movieSynopsis" id="movieDescription" rows="3"></textarea>
         
-        <lable for="moviePoster">Poster:</label>
-        <input type="String" id="moviePoster" required>
+        <lable for="movieImage">Poster:</label>
+        <input name="movieImage" type="String" id="moviePoster" required>
         
 
-        <button type="submit">Add Movie</button>
+        <button name="btAction" type="submit" value="Add Movie"></button>
     </form>
 
     <!-- Movie List -->
     <h2>Movie List</h2>
+    
+    
+    
     <table id="movieTable">
-        <thead>
+        <thead>                       
             <tr>
                 <th>Title</th>
-                <th>Director</th>
+                <th>Name</th>
                 <th>Genre</th>
                 <th>Duration</th>
                 <th>Description</th>
-                <th>Actions</th>
-            </tr>
+                <th>Poster</th>
+            </tr>            
         </thead>
         <tbody>
-            <!-- Dynamic Movie Rows -->
+            <% 
+                ArrayList<MovieDTO> movieList = (ArrayList<MovieDTO>)request.getAttribute("movieList");
+                for(MovieDTO moviedto: movieList){   
+            %>
+            <tr>
+                <td><%= moviedto.getMovieTitle() %></td>
+                <td><%= moviedto.getMovieName() %></td>
+                <td><%= moviedto.getMovieGenre() %></td>
+                <td><%= moviedto.getMovieDuration() %></td>
+                <td><%= moviedto.getMovieSynopsis() %></td>
+                <td><img src="<%= moviedto.getMovieImage() %>" alt="Poster" style="width:50px;height:50px;"></td>
+            </tr>
+            <% } %>
         </tbody>
     </table>
+    
+    
+    
+    
 </body>
 </html>>
