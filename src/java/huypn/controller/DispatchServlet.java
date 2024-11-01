@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DispatchServlet extends HttpServlet {
     private final String LOGIN_PAGE="login.html";
+    private final String BOOKING_PAGE="booking.jsp";
     private final String LOGIN_CONTROLLER="LoginServlet";
     private final String MOVIE_CONTROLLER="MovieServlet";
     private final String SIGNUP_CONTROLLER="SignInServlet";
@@ -57,6 +58,9 @@ public class DispatchServlet extends HttpServlet {
            }
           else if(button.equals("Play")){
                url=DETAIL_CONTROLLER;
+           }
+          else if(button.equals("Buy ticket")){
+               url=BOOKING_PAGE;
            }
        }finally{
            RequestDispatcher rd=request.getRequestDispatcher(url);
