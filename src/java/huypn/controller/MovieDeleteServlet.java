@@ -54,18 +54,15 @@ public class MovieDeleteServlet extends HttpServlet {
                 }
             }
 
-            if (url.contains(".html")) {
-                response.sendRedirect(url);
-            } else {
-                RequestDispatcher rd = request.getRequestDispatcher(url);
-                rd.forward(request, response);
-            }
         } catch (ClassNotFoundException ex) {
             log("Class not found: " + ex.getMessage());
             response.sendRedirect("invalid.html");
         } catch (SQLException ex) {
             log("SQL Exception: " + ex.getMessage());
             response.sendRedirect("invalid.html");
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 

@@ -134,31 +134,7 @@
                         </form>
                     </td>
                     <%-- Update button with from --%>
-                    <td>
-                        <form id="updateMovieForm" action="UpdateMovieServlet" method="POST">
-                            <input type="hidden" name="movieID" value="<%= moviedto.getMovieID()%>"> <!-- Hidden ID field -->
-
-                            <label for="movieTitle">Title:</label>
-                            <input name="movieTitle" type="text" id="movieTitle" value="<%= moviedto.getMovieTitle()%>" required>
-
-                            <label for="movieName">Name:</label>
-                            <input name="movieName" type="text" id="movieName" value="<%= moviedto.getMovieName()%>" required>
-
-                            <label for="movieGenre">Genre:</label>
-                            <input name="movieGenre" type="text" id="movieGenre" value="<%= moviedto.getMovieGenre()%>" required>
-
-                            <label for="movieDuration">Duration (mins):</label>
-                            <input name="movieDuration" type="number" id="movieDuration" value="<%= moviedto.getMovieDuration()%>" min="0" required>
-
-                            <label for="movieDescription">Description:</label>
-                            <textarea name="movieSynopsis" id="movieDescription" rows="3"><%= moviedto.getMovieSynopsis()%></textarea>
-
-                            <label for="movieImage">Poster:</label>
-                            <input name="movieImage" type="text" id="movieImage" value="<%= moviedto.getMovieImage()%>" required>
-
-                            <input name="btAction" type="submit" value="Update Movie"/>
-                        </form>
-                    </td>
+                    
 
                 </tr>
                 <%

@@ -5,8 +5,11 @@
  */
 package huypn.controller;
 
+import bachnph.Movie.MovieDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +22,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "MovieCreateServlet", urlPatterns = {"/MovieCreateServlet"})
 public class MovieCreateServlet extends HttpServlet {
-private final String MANGEMOVIE_PAGE ="MovieServlet";
+
+ private final String MANAGEMOVIE_PAGE= "manageMovies.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,12 +37,32 @@ private final String MANGEMOVIE_PAGE ="MovieServlet";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("btAction");
-        String url = MANGEMOVIE_PAGE;
+        boolean result;
+        String url= MANAGEMOVIE_PAGE;
         try{
+            String movieName = request.getParameter("movieName");
+            String movieImage = request.getParameter("movieImage");
+            String movieTitle = request.getParameter("movieTitle");
+            String movieGenre = request.getParameter("movieGenre");
+            String movieDuration = request.getParameter("movieDuration");
+            String movieSynopsis = request.getParameter("movieSynopsis");
+            MovieDAO dao= new MovieDAO();
+            int intDuration = Integer.parseInt(movieDuration);
             
-        }finally{
-            
+            result= dao.addMovie(movieName, movieTitle, movieImage, movieGenre, intDuration, movieSynopsis);
+            if(result == false){
+                url= "invalid.html";
+            }else{
+                url="DispatchServlet?btAction=Go to Manage Movie";
+            }
+        }catch(ClassNotFoundException ex){
+            System.out.println("Class not found" + ex.getMessage());
+        }catch(SQLException e){
+            System.out.println("Sql Exception" +e.getMessage());
+        }
+        finally{
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 
