@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bachnph.Movie;
+package huypn.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name = "ManageMovieSevlet", urlPatterns = {"/ManageMovieSevlet"})
-public class ManageMovieServlet extends HttpServlet {
+@WebServlet(name = "MovieCreateServlet", urlPatterns = {"/MovieCreateServlet"})
+public class MovieCreateServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
