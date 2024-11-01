@@ -104,7 +104,7 @@ public class MovieDAO {
     }
 
     public boolean updateMovie(MovieDTO movie) throws ClassNotFoundException, SQLException {
-        String sql = " UPDATE dbo.Movies SET MovieID = ?, MovieName = ?, MovieImage = ? WHERE MovieID = ? ";
+        String sql = " UPDATE dbo.Movies SET MovieName = ?, MovieImage = ? WHERE MovieID = ? ";
         Connection con = DBHelper.getConnection();
         PreparedStatement stm = null;
         ResultSet rs = null;
