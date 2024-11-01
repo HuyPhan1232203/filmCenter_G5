@@ -41,6 +41,7 @@ public class ManageMovieServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ManageMovieSevlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>HAHAHA</h1>");
             out.println("</body>");
             out.println("</html>");
         }

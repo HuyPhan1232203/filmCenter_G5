@@ -44,7 +44,10 @@ public class LoginServlet extends HttpServlet {
         try{
             UserDAO dao=new UserDAO();
             UserDTO dto =dao.checkLogin(username, password);
+            
             if(dto!=null){
+                
+              
                 if(dto.isRole() == false){
                     url=HOME_PAGE;
                 }
