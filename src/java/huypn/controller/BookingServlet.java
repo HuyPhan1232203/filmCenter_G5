@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bachnph.Movie;
+package huypn.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Admin
+ * @author hien
  */
-@WebServlet(name = "ManageMovieSevlet", urlPatterns = {"/ManageMovieSevlet"})
-public class ManageMovieServlet extends HttpServlet {
+@WebServlet(name = "BookingServlet", urlPatterns = {"/BookingServlet"})
+public class BookingServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,11 +37,10 @@ public class ManageMovieServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManageMovieSevlet</title>");            
+            out.println("<title>Servlet BookingServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManageMovieSevlet at " + request.getContextPath() + "</h1>");
-            out.println("<h1>HAHAHA</h1>");
+            out.println("<h1>Servlet BookingServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
