@@ -64,7 +64,11 @@
     <body>
         <header>
             <h1>Welcome to Movie Center</h1>
+            <div>Welcome, ${sessionScope.USERNAME}</div>
             <p>Your ultimate source for movies!</p>
+            <form action="DispatchServlet" method="POST">
+                <input type="submit" value="Logout"/>
+            </form>
         </header>
         
         <nav>

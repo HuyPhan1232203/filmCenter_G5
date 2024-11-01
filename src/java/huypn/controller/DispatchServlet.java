@@ -23,6 +23,8 @@ public class DispatchServlet extends HttpServlet {
     private final String LOGIN_CONTROLLER="LoginServlet";
     private final String MOVIE_CONTROLLER="MovieServlet";
     private final String SIGNUP_CONTROLLER="SignInServlet";
+    private final String MOVIECREATE_CONTROLLER="MovieCreateServlet";
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,6 +50,9 @@ public class DispatchServlet extends HttpServlet {
            }
           else if(button.equals("Sign Up")){
                url=SIGNUP_CONTROLLER;
+           }
+          else if(button.equals("Add Movie")){
+               url=MOVIECREATE_CONTROLLER;
            }
        }finally{
            RequestDispatcher rd=request.getRequestDispatcher(url);
