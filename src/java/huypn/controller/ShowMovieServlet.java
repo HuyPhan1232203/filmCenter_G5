@@ -10,48 +10,37 @@ import bachnph.Movie.MovieDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Admin
+ * @author hien
  */
-@WebServlet(name = "MovieServlet", urlPatterns = {"/MovieServlet"})
-public class MovieServlet extends HttpServlet {
+@WebServlet(name = "ShowMovieServlet", urlPatterns = {"/ShowMovieServlet"})
+public class ShowMovieServlet extends HttpServlet {
 
-    private final String MOVIE_PAGE = "manageMovies.jsp";
+    private final String HOME_PAGE = "home.jsp";
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String url=HOME_PAGE;
         response.setContentType("text/html;charset=UTF-8");
-        String url = MOVIE_PAGE;
         List<MovieDTO> movieList = null;
         MovieDAO dao = new MovieDAO();
         try {
             movieList = dao.showAllMovie();
-            request.setAttribute("MOVIE_LIST", movieList);
+            request.setAttribute("movieList", movieList);
+            System.out.println(movieList);
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
-        request.setAttribute("movieList", movieList);
-        request.getRequestDispatcher(url).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

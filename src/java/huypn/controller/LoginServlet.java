@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
                 cookies.setMaxAge(60 * 3);
                 response.addCookie(cookies);
                 if (dto.isRole() == false) {
-                    url = HOME_PAGE;
+                    url = "ShowMovieServlet";
                 }
                 if (dto.isRole() == true) {
                     url = ADMIN_PAGE;

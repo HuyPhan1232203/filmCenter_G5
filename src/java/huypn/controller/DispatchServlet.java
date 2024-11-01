@@ -20,11 +20,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DispatchServlet extends HttpServlet {
     private final String LOGIN_PAGE="login.html";
+    private final String BOOKING_PAGE="booking.jsp";
     private final String LOGIN_CONTROLLER="LoginServlet";
     private final String MOVIE_CONTROLLER="MovieServlet";
     private final String SIGNUP_CONTROLLER="SignInServlet";
     private final String MOVIECREATE_CONTROLLER="MovieCreateServlet";
-    private final String MOVIEDELETE_CONTROLLER="MovieDeleteServlet";
+    private final String DETAIL_CONTROLLER="ShowDetailServlet";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,8 +46,8 @@ public class DispatchServlet extends HttpServlet {
                
            }else if(button.equals("Login")){
                url=LOGIN_CONTROLLER;
-           
-           }else if(button.equals("Go to Manage Movie")){
+           }
+           else if(button.equals("Go to Manage Movie")){
                url=MOVIE_CONTROLLER;
            }
           else if(button.equals("Sign Up")){
@@ -55,10 +56,12 @@ public class DispatchServlet extends HttpServlet {
           else if(button.equals("Add Movie")){
                url=MOVIECREATE_CONTROLLER;
            }
-          else if(button.equals("Delete")){
-               url=MOVIEDELETE_CONTROLLER;
+          else if(button.equals("Play")){
+               url=DETAIL_CONTROLLER;
            }
-           
+          else if(button.equals("Buy ticket")){
+               url=BOOKING_PAGE;
+           }
        }finally{
            RequestDispatcher rd=request.getRequestDispatcher(url);
            rd.forward(request, response);
