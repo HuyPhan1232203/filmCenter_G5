@@ -13,9 +13,11 @@ import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,9 +25,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
-    private final String INVALID_PAGE="invalid.html";
-    private final String HOME_PAGE="home.jsp";
-    private final String ADMIN_PAGE="adminMain.jsp";
+
+    private final String INVALID_PAGE = "invalid.html";
+    private final String HOME_PAGE = "home.jsp";
+    private final String ADMIN_PAGE = "adminMain.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,29 +42,32 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String username=request.getParameter("txtUsername");
-        String password=request.getParameter("txtPassword");
-        String url=INVALID_PAGE;
-        try{
-            UserDAO dao=new UserDAO();
-            UserDTO dto =dao.checkLogin(username, password);
-            
-            if(dto!=null){
-                
-              
-                if(dto.isRole() == false){
-                    url=HOME_PAGE;
+        String username = request.getParameter("txtUsername");
+        String password = request.getParameter("txtPassword");
+        String url = INVALID_PAGE;
+        try {
+            UserDAO dao = new UserDAO();
+            UserDTO dto = dao.checkLogin(username, password);
+            if (dto != null) {
+                Cookie cookies = new Cookie(username, password);
+                cookies.setMaxAge(60 * 3);
+                response.addCookie(cookies);
+                if (dto.isRole() == false) {
+                    url = "ShowMovieServlet";
                 }
-                if(dto.isRole() == true){
-                    url=ADMIN_PAGE;
+                if (dto.isRole() == true) {
+                    url = ADMIN_PAGE;
+                }
+                HttpSession session=request.getSession(true);
+                session.setAttribute("USER", dto);
+                session.setAttribute("USERNAME", username);
             }
-            }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }catch(ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }finally{
-            RequestDispatcher rd= request.getRequestDispatcher(url);
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
     }
