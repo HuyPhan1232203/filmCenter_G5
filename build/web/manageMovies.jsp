@@ -123,6 +123,19 @@
                     <td><%= moviedto.getMovieDuration()%></td>
                     <td><%= moviedto.getMovieSynopsis()%></td>
                     <td><img src="<%= moviedto.getMovieImage()%>" alt="Poster" style="width:50px;height:50px;"></td>
+
+
+                    <%-- Delete button with from --%>
+                    <td>
+                        <form action="DispatchServlet" method="POST" style="display:inline;">
+                            <input type="hidden" name="movieID" value="<%= moviedto.getMovieID()%>">
+                            <input type="hidden" name="btAction" value="Delete">
+                            <button type="submit" class="delete">Delete</button>
+                        </form>
+                    </td>
+
+                    
+                    
                 </tr>
                 <%
                     } // End for loop

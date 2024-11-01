@@ -41,7 +41,7 @@ public class MovieDAO {
         try {
             if (con != null) {
                 String sql = "SELECT  m.MovieID, d.Title, m.MovieName,d.Genre, d.Duration, d.Synopsis,m.MovieImage "
-                        + "FROM dbo.Movies m JOIN dbo.MovieDetails d ON m.MovieID = d.MovieID; ";                       
+                        + "FROM dbo.Movies m JOIN dbo.MovieDetails d ON m.MovieID = d.MovieID; ";
                 stm = con.prepareStatement(sql);
 
                 rs = stm.executeQuery();
@@ -52,7 +52,7 @@ public class MovieDAO {
                     String MovieName = rs.getString("MovieName");
                     String Genre = rs.getString("Genre");
                     int Duration = rs.getInt("Duration");
-                    String Synopsis = rs.getString("Synopsis");               
+                    String Synopsis = rs.getString("Synopsis");
                     String MovieImage = rs.getString("MovieImage");
                     MovieDTO dto = new MovieDTO(MovieID, MovieName, MovieImage, Duration, MovieTitle, Genre, Synopsis);
                     if (this.movieList == null) {
@@ -113,23 +113,51 @@ public class MovieDAO {
             stmt.setInt(1, movie.getMovieID());
             stmt.setString(2, movie.getMovieName());
             stmt.setString(3, movie.getMovieImage());
-            int affectedRow=stmt.executeUpdate();
-            if(affectedRow>0){
+            int affectedRow = stmt.executeUpdate();
+            if (affectedRow > 0) {
                 return true;
             }
         }
         return false;
     }
 
-    public void deleteMovie(int id) throws ClassNotFoundException, SQLException {
-        String sql = " DELETE FROM dbo.Movies WHERE MovieID = ? ";
+    public boolean deleteMovie(int movieID) throws ClassNotFoundException, SQLException {
+        String deleteDetailSql = "DELETE FROM dbo.MovieDetails WHERE MovieID = ?";
+        String deleteMovieSql = "DELETE FROM dbo.Movies WHERE MovieID = ?";
+
         Connection con = DBHelper.getConnection();
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        MovieDTO result = null;
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
+        PreparedStatement detailStmt = null;
+        PreparedStatement movieStmt = null;
+
+        try {
+            con.setAutoCommit(false);
+
+            detailStmt = con.prepareStatement(deleteDetailSql);
+            detailStmt.setInt(1, movieID);
+            detailStmt.executeUpdate();
+
+            movieStmt = con.prepareStatement(deleteMovieSql);
+            movieStmt.setInt(1, movieID);
+            int rowAffected = movieStmt.executeUpdate();
+
+            con.commit();
+            return rowAffected > 0;
+        } catch (SQLException ex) {
+            if (con != null) {
+                con.rollback();  // Rollback if there is any failure
+            }
+            throw ex;  // Re-throw the exception after rollback
+        } finally {
+            if (detailStmt != null) {
+                detailStmt.close();
+            }
+            if (movieStmt != null) {
+                movieStmt.close();
+            }
+            if (con != null) {
+                con.close();
+            }
         }
+
     }
 }
