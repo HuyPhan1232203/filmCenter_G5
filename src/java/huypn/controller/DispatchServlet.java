@@ -24,6 +24,7 @@ public class DispatchServlet extends HttpServlet {
     private final String MOVIE_CONTROLLER="MovieServlet";
     private final String SIGNUP_CONTROLLER="SignInServlet";
     private final String MOVIECREATE_CONTROLLER="MovieCreateServlet";
+    private final String DETAIL_CONTROLLER="ShowDetailServlet";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,8 +45,8 @@ public class DispatchServlet extends HttpServlet {
                
            }else if(button.equals("Login")){
                url=LOGIN_CONTROLLER;
-           
-           }else if(button.equals("Go to Manage Movie")){
+           }
+           else if(button.equals("Go to Manage Movie")){
                url=MOVIE_CONTROLLER;
            }
           else if(button.equals("Sign Up")){
@@ -53,6 +54,9 @@ public class DispatchServlet extends HttpServlet {
            }
           else if(button.equals("Add Movie")){
                url=MOVIECREATE_CONTROLLER;
+           }
+          else if(button.equals("Play")){
+               url=DETAIL_CONTROLLER;
            }
        }finally{
            RequestDispatcher rd=request.getRequestDispatcher(url);
