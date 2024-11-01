@@ -74,6 +74,43 @@ public class MovieDAO {
         }
         return movieList;
     }
+    public MovieDTO showDetail(int id)
+            throws ClassNotFoundException, SQLException {
+        Connection con = DBHelper.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        MovieDTO dto=null;
+        try {
+            if (con != null) {
+                String sql = "SELECT  m.MovieID, d.Title, m.MovieName,d.Genre, d.Duration, d.Synopsis,m.MovieImage "
+                        + "FROM dbo.Movies m JOIN dbo.MovieDetails d ON m.MovieID = d.MovieID where m.MovieID=?"; 
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, id);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    int MovieID = rs.getInt("MovieID");
+                    String MovieTitle = rs.getString("Title");
+                    String MovieName = rs.getString("MovieName");
+                    String Genre = rs.getString("Genre");
+                    int Duration = rs.getInt("Duration");
+                    String Synopsis = rs.getString("Synopsis");               
+                    String MovieImage = rs.getString("MovieImage");
+                     dto = new MovieDTO(MovieID, MovieName, MovieImage, Duration, MovieTitle, Genre, Synopsis);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return dto;
+    }
 
     public boolean addMovie(String name, String title, String image, String genre, int duration, String synopsis) throws ClassNotFoundException, SQLException {
 
@@ -132,4 +169,5 @@ public class MovieDAO {
             stmt.executeUpdate();
         }
     }
+    
 }

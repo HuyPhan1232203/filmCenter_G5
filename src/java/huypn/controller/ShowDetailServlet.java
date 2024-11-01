@@ -10,8 +10,6 @@ import bachnph.Movie.MovieDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,13 +20,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Admin
+ * @author hien
  */
-@WebServlet(name = "MovieServlet", urlPatterns = {"/MovieServlet"})
-public class MovieServlet extends HttpServlet {
-
-    private final String MOVIE_PAGE = "manageMovies.jsp";
-
+@WebServlet(name = "ShowDetailServlet", urlPatterns = {"/ShowDetailServlet"})
+public class ShowDetailServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,17 +36,22 @@ public class MovieServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = MOVIE_PAGE;
-        List<MovieDTO> movieList = null;
-        MovieDAO dao = new MovieDAO();
-        try {
-            movieList = dao.showAllMovie();
-            request.setAttribute("MOVIE_LIST", movieList);
-        } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        request.setAttribute("movieList", movieList);
-        request.getRequestDispatcher(url).forward(request, response);
+        String paraID=request.getParameter("txtMovieID");
+        MovieDTO dto=null;
+       try{
+           MovieDAO dao=new MovieDAO();
+           dto=dao.showDetail(Integer.parseInt(paraID));
+           if(dto!=null){
+               HttpSession session=request.getSession(true);
+               session.setAttribute("MOVIE_DETAIL", dto);
+           }
+       }catch(ClassNotFoundException|SQLException e){
+           System.out.println(e);
+       }
+       finally{
+           RequestDispatcher rd=request.getRequestDispatcher("movieDetail.jsp");
+           rd.forward(request, response);
+       }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
