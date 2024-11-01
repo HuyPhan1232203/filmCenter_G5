@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package huypn.controller;
+package bachnph.Movie;
 
-import bachnph.Movie.MovieDAO;
 import java.io.IOException;
-import java.sql.SQLException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +17,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name = "MovieCreateServlet", urlPatterns = {"/MovieCreateServlet"})
-public class MovieCreateServlet extends HttpServlet {
-private final String MANAGEMOVIE_PAGE= "manageMovies.jsp";
+@WebServlet(name = "ManageMovieSevlet", urlPatterns = {"/ManageMovieSevlet"})
+public class ManageMovieServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,34 +31,19 @@ private final String MANAGEMOVIE_PAGE= "manageMovies.jsp";
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-        boolean result;
-        String url= MANAGEMOVIE_PAGE;
-        try{
-            String movieName = request.getParameter("movieName");
-            String movieImage = request.getParameter("movieImage");
-            String movieTitle = request.getParameter("movieTitle");
-            String movieGenre = request.getParameter("movieGenre");
-            String movieDuration = request.getParameter("movieDuration");
-            String movieSynopsis = request.getParameter("movieSynopsis");
-            MovieDAO dao= new MovieDAO();
-            int intDuration = Integer.parseInt(movieDuration);
-            result= dao.addMovie(movieName, movieTitle, movieImage, movieGenre, intDuration, movieSynopsis);
-            if(result == false){
-                url= "invalid.html";
-            }else{
-                url="DispatchServlet"
-                        + "?btAction=Go to Manage Movie";
-            }
-        }catch(ClassNotFoundException ex){
-            System.out.println("Class not found" + ex.getMessage());
-        }catch(SQLException e){
-            System.out.println("Sql Exception" +e.getMessage());
-        }
-        finally{
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ManageMovieSevlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ManageMovieSevlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>HAHAHA</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
