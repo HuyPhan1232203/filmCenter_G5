@@ -76,7 +76,7 @@
         <h1>Manage Movies</h1>
 
         <!-- Form to Add Movie -->
-        <form id="addMovieForm" onsubmit="addMovie(event)" action="DispatchServlet">
+        <form id="addMovieForm" action="DispatchServlet">
             <h2>Add Movie</h2>
             <label for="movieTitle">Title:</label>
             <input name="movieTitle" type="text" id="movieTitle" required>
@@ -95,16 +95,10 @@
 
             <lable for="movieImage">Poster:</label>
                 <input name="movieImage" type="String" id="moviePoster" required>
-
-
-                <button name="btAction" type="submit" value="Add Movie"></button>
+                <input name="btAction" type="submit" value="Add Movie"/>
         </form>
-
         <!-- Movie List -->
         <h2>Movie List</h2>
-
-
-
         <table id="movieTable">
             <thead>                       
                 <tr>

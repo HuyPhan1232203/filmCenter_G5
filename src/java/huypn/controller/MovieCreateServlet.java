@@ -47,10 +47,12 @@ private final String MANAGEMOVIE_PAGE= "manageMovies.jsp";
             String movieSynopsis = request.getParameter("movieSynopsis");
             MovieDAO dao= new MovieDAO();
             int intDuration = Integer.parseInt(movieDuration);
-            
             result= dao.addMovie(movieName, movieTitle, movieImage, movieGenre, intDuration, movieSynopsis);
             if(result == false){
                 url= "invalid.html";
+            }else{
+                url="DispatchServlet"
+                        + "?btAction=Go to Manage Movie";
             }
         }catch(ClassNotFoundException ex){
             System.out.println("Class not found" + ex.getMessage());

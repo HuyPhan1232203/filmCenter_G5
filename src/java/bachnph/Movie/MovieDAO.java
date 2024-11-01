@@ -40,9 +40,8 @@ public class MovieDAO {
         MovieDTO result = null;
         try {
             if (con != null) {
-                String sql = " SELECT d.Title, m.MovieName,d.Genre, d.Duration, d.Synopsis,m.MovieImage "
-                        + " FROM Movies m "
-                        + " JOIN MovieDetails d ON m.MovieID = d.MovieID; ";
+                String sql = "SELECT  m.MovieID, d.Title, m.MovieName,d.Genre, d.Duration, d.Synopsis,m.MovieImage "
+                        + "FROM dbo.Movies m JOIN dbo.MovieDetails d ON m.MovieID = d.MovieID; ";                       
                 stm = con.prepareStatement(sql);
 
                 rs = stm.executeQuery();
@@ -56,9 +55,9 @@ public class MovieDAO {
                     String Synopsis = rs.getString("Synopsis");               
                     String MovieImage = rs.getString("MovieImage");
                     MovieDTO dto = new MovieDTO(MovieID, MovieName, MovieImage, Duration, MovieTitle, Genre, Synopsis);
-                    /*if (this.movieList == null) {
+                    if (this.movieList == null) {
                         this.movieList = new ArrayList<>();
-                    }*/
+                    }
                     movieList.add(dto);
                 }
             }
@@ -87,7 +86,6 @@ public class MovieDAO {
                     + " DECLARE @MovieID INT "
                     + " SET @MovieID = (SELECT TOP 1 MovieID FROM dbo.Movies ORDER BY MovieID DESC); "
                     + " INSERT INTO dbo.MovieDetails (MovieID, Title, Genre, Duration, Synopsis) VALUES (@MovieID, ?, ?, ?, ?); ";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, name);
             stmt.setString(2, image);
@@ -105,7 +103,7 @@ public class MovieDAO {
         return false;
     }
 
-    public void updateMovie(MovieDTO movie) throws ClassNotFoundException, SQLException {
+    public boolean updateMovie(MovieDTO movie) throws ClassNotFoundException, SQLException {
         String sql = " UPDATE dbo.Movies SET MovieID = ?, MovieName = ?, MovieImage = ? WHERE MovieID = ? ";
         Connection con = DBHelper.getConnection();
         PreparedStatement stm = null;
@@ -115,9 +113,12 @@ public class MovieDAO {
             stmt.setInt(1, movie.getMovieID());
             stmt.setString(2, movie.getMovieName());
             stmt.setString(3, movie.getMovieImage());
-            stmt.executeUpdate();
-            System.out.println("Movie updated successfully.");
+            int affectedRow=stmt.executeUpdate();
+            if(affectedRow>0){
+                return true;
+            }
         }
+        return false;
     }
 
     public void deleteMovie(int id) throws ClassNotFoundException, SQLException {
