@@ -9,8 +9,6 @@ import bachnph.Movie.MovieDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,12 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Admin
+ * @author hien
  */
-@WebServlet(name = "MovieDeleteServlet", urlPatterns = {"/MovieDeleteServlet"})
-public class MovieDeleteServlet extends HttpServlet {
-
-    private final String MANAGEMOVIE_PAGE = "manageMovies.jsp";
+@WebServlet(name = "UpdateMovieServlet", urlPatterns = {"/UpdateMovieServlet"})
+public class UpdateMovieServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,30 +35,23 @@ public class MovieDeleteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("btAction");
-        String url = MANAGEMOVIE_PAGE;
-        try {
-            if ("Delete".equals(action)) {
-                int movieID = Integer.parseInt(request.getParameter("txtMovieID"));
-                MovieDAO movieDAO = new MovieDAO();
-
-                boolean deleted = movieDAO.deleteMovie(movieID);
-                if (!deleted) {
-                    url = "invalid.html";
-                } else {
-                    url = "DispatchServlet?btAction=Go to Manage Movie";
-                }
-            }
-
-        } catch (ClassNotFoundException ex) {
-            log("Class not found: " + ex.getMessage());
-            response.sendRedirect("invalid.html");
-        } catch (SQLException ex) {
-            log("SQL Exception: " + ex.getMessage());
-            response.sendRedirect("invalid.html");
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+        String txtName=request.getParameter("txtName");
+        String txtTile=request.getParameter("txtTitle");
+        String txtGenre=request.getParameter("txtGenre");
+        String txtDuration=request.getParameter("txtDuration");
+        String txtSynopsis=request.getParameter("txtSynopsis");
+        String txtID=request.getParameter("txtMovieID");
+         String url="DispatchServlet?btAction=Go to Manage Movie";
+        try{
+            int duration=Integer.parseInt(txtDuration);
+            int id=Integer.parseInt(txtID);
+            MovieDAO dao=new MovieDAO();
+            dao.updateMovie(id, txtName, txtTile, txtGenre, txtSynopsis, duration);
+        }catch(ClassNotFoundException|SQLException e){
+            System.out.println(e);
+        }
+        finally{
+            response.sendRedirect(url);
         }
     }
 

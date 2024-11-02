@@ -159,43 +159,61 @@ public class MovieDAO {
     }
 
     public boolean deleteMovie(int movieID) throws ClassNotFoundException, SQLException {
-        String deleteDetailSql = "DELETE FROM dbo.MovieDetails WHERE MovieID = ?";
-        String deleteMovieSql = "DELETE FROM dbo.Movies WHERE MovieID = ?";
+        String deleteDetailSql = "DELETE FROM dbo.MovieDetails WHERE MovieID = ? "
+                + "DELETE FROM dbo.Movies WHERE MovieID = ?";
 
         Connection con = DBHelper.getConnection();
-        PreparedStatement detailStmt = null;
-        PreparedStatement movieStmt = null;
-
+        PreparedStatement stm=null;
         try {
-            con.setAutoCommit(false);
-
-            detailStmt = con.prepareStatement(deleteDetailSql);
-            detailStmt.setInt(1, movieID);
-            detailStmt.executeUpdate();
-
-            movieStmt = con.prepareStatement(deleteMovieSql);
-            movieStmt.setInt(1, movieID);
-            int rowAffected = movieStmt.executeUpdate();
-
-            con.commit();
-            return rowAffected > 0;
-        } catch (SQLException ex) {
-            if (con != null) {
-                con.rollback();  // Rollback if there is any failure
-            }
-            throw ex;  // Re-throw the exception after rollback
+           stm=con.prepareStatement(deleteDetailSql);
+           stm.setInt(1, movieID);
+           stm.setInt(2, movieID);
+           int afftedRow=stm.executeUpdate();
+           if(afftedRow>0){
+               return true;
+           }
         } finally {
-            if (detailStmt != null) {
-                detailStmt.close();
-            }
-            if (movieStmt != null) {
-                movieStmt.close();
-            }
-            if (con != null) {
-                con.close();
-            }
+           if(con!=null){
+               con.close();
+           }
+           if(stm!=null){
+               stm.close();
+           }
         }
+        return false;
+    }
+    public void updateMovie(int movieID,String name,String title,String genre,String synopis,int duration)
+            throws ClassNotFoundException, SQLException {
+        String deleteDetailSql ="UPDATE dbo.Movies "
+                + "set MovieName = ? "
+                + "WHERE MovieID=? "
+                + "UPDATE dbo.MovieDetails "
+                + "set Title=?, "
+                + "Genre=?, "
+                + "Duration=?, "
+                + "Synopsis=? "
+                + "WHERE MovieID=? ";
 
+        Connection con = DBHelper.getConnection();
+        PreparedStatement stm=null;
+        try {
+           stm=con.prepareStatement(deleteDetailSql);
+           stm.setString(1, name);
+           stm.setInt(2, movieID);
+           stm.setString(3,title);
+           stm.setString(4,genre);
+           stm.setInt(5,duration);
+           stm.setString(6,synopis);
+           stm.setInt(7,movieID);
+           stm.executeUpdate();
+        } finally {
+           if(con!=null){
+               con.close();
+           }
+           if(stm!=null){
+               stm.close();
+           }
+        }
     }
     
 }
