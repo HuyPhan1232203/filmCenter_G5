@@ -46,18 +46,18 @@
                 display: block;
                 margin-bottom: 5px;
             }
-            select, button {
+            select, .button {
                 padding: 10px;
                 width: 100%;
                 box-sizing: border-box;
             }
-            button {
+            .button {
                 background-color: #007bff;
                 color: white;
                 border: none;
                 cursor: pointer;
             }
-            button:hover {
+            .button:hover {
                 background-color: #0056b3;
             }
         </style>
@@ -68,58 +68,53 @@
 
             <div class="form-group">
                 <label for="showtime">Showtime:</label>
-                <select id="showtime" name="showtime">
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                </select>
+                <form action="DispatchServlet">
+                    <c:set var="List" value="${requestScope.LIST_SHOWTIME}"/>
+                    <c:if test="${not empty List}">
+                        <select id="showtime" name="showtime">
+                            <c:forEach var="time" items="${List}">
+                                <option value="${time.dateTime}">${time.dateTime}</option>
+                            </c:forEach>
+                        </select>
+                    </c:if>
+
             </div>
             <c:set var="ScreenList" value="${requestScope.SCREEN_LIST}"/>
             <div class="form-group">
                 <label for="screen">Screen (Room):</label>
-                <form action="DispatchServlet">
-                    <select id="screen" name="screen">
-                        <c:forEach var="screen" items="${ScreenList}">
-                            <option value="${screen.screenNumber}">Screen ${screen.screenNumber}</option>
-                        </c:forEach>
-                    </select>
-                    <input type="submit" name="btAction" value="Choose"/>
-                </form>
+                <select id="screen" name="screen">
+                    <c:forEach var="screen" items="${ScreenList}">
+                        <option value="${screen.screenNumber}">Screen ${screen.screenNumber}</option>
+                    </c:forEach>
+                </select>
+                <input name="txtMovieID" value="${sessionScope.MOVIE_DETAIL.movieID}" hidden/>
+                <input type="submit" name="btAction" value="Choose"/>
             </div>
             <c:set var="List" value="${requestScope.LIST_SEAT}"/>
             <c:if test="${not empty List}">
-                <form action="DispatchServlet">
-                    <div class="screen">Screen (Front)</div>
+                <div class="screen">Screen (Front)</div>
 
-               
-                        <c:forEach var="seat" items="${List}">
-                            <div class="seat" id="seat${seat.seatNumber}">${seat.seatNumber}</div>
-                        </c:forEach>
 
-                    <button type="button" onclick="bookSeats()">Book Now</button>
-                </form>
-            </c:if>
-        </div>
+                <c:forEach var="seat" items="${List}">
+                    <div class="seat" id="seat${seat.seatNumber}">${seat.seatNumber}</div>
+                </c:forEach>
 
-        <script>
-            document.querySelectorAll('.seat').forEach(seat => {
-                seat.addEventListener('click', function () {
-                    if (!this.classList.contains('occupied')) {
-                        this.classList.toggle('selected');
-                    }
-                });
+                <input name="txtUserID" value="${sessionScope.USER.userID}" hidden/>
+                <input name="txtMovieID" value="${sessionScope.MOVIE_DETAIL.movieID}" hidden/>
+                <input type="submit" class="button" name="btAction" value="Book Now"/>
+            </form>
+        </c:if>
+    </div>
+
+    <script>
+        document.querySelectorAll('.seat').forEach(seat => {
+            seat.addEventListener('click', function () {
+                if (!this.classList.contains('occupied')) {
+                    this.classList.toggle('selected');
+                }
             });
+        });
 
-            function bookSeats() {
-                let selectedSeats = [];
-                document.querySelectorAll('.seat.selected').forEach(seat => {
-                    selectedSeats.push(seat.textContent);
-                });
-                console.log(selectedSeats);
-                alert('You have booked seats: ' + selectedSeats.join(', '));
-            }
-        </script>
-    </body>
+    </script>
+</body>
 </html>

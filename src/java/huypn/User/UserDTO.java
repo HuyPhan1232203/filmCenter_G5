@@ -14,15 +14,17 @@ import java.io.Serializable;
 public class UserDTO implements Serializable{
     String username,password,phoneNumber;
     boolean role;
+    int userID;
 
     public UserDTO() {
     }
 
-    public UserDTO(String username, String password, String phoneNumber, boolean role) {
+    public UserDTO(String username, String password, String phoneNumber, boolean role, int userID) {
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.role = role;
+        this.userID = userID;
     }
 
     public String getUsername() {
@@ -56,6 +58,15 @@ public class UserDTO implements Serializable{
     public void setRole(boolean role) {
         this.role = role;
     }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
     
+   
     
 }

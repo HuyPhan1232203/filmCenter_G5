@@ -27,7 +27,7 @@ public class UserDAO implements Serializable{
         UserDTO result=null;
         try{
             if(con!=null){
-                String sql="select Username,Role,Phonenumber "
+                String sql="select UserID,Username,Role,Phonenumber "
                             + "from dbo.Users "
                             + "where Username=? "
                             + "and Passwordhash=?";
@@ -36,10 +36,10 @@ public class UserDAO implements Serializable{
                 stm.setString(2, password);
                 rs=stm.executeQuery();
                 if(rs.next()){
-                    String fullname=rs.getString("Username");
+                    int userID=rs.getInt("UserID");
                     String phone=rs.getString("Phonenumber");
                     boolean role=rs.getBoolean("Role");
-                    result=new UserDTO(username, "", fullname, role);
+                    result = new UserDTO(username, password, phone, role, userID);
                 }
             }
         }finally{

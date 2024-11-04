@@ -5,8 +5,8 @@
  */
 package huypn.controller;
 
-import bachnph.Seat.SeatDAO;
-import bachnph.Seat.SeatDTO;
+import huypn.Showtime.TimeDAO;
+import huypn.Showtime.TimeDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,14 +17,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author hien
  */
-@WebServlet(name = "ShowSeatServlet", urlPatterns = {"/ShowSeatServlet"})
-public class ShowSeatServlet extends HttpServlet {
+@WebServlet(name = "ShowDateTImeUserServlet", urlPatterns = {"/ShowDateTImeUserServlet"})
+public class ShowDateTImeUserServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,28 +32,28 @@ public class ShowSeatServlet extends HttpServlet {
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException if an I/O error oc1curs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String txtID= request.getParameter("screen");
-        String txtMovieID= request.getParameter("txtMovieID");
-        List<SeatDTO> list=null;
+        String txtMovieID=request.getParameter("txtMovieID");
+        String txtScreenID=request.getParameter("screenID");
+        List<TimeDTO>list=null;
         try{
-            int id=Integer.parseInt(txtID);
-            SeatDAO dao=new SeatDAO();
-            dao.showAllSeat(id);
-            list=dao.getSeat();
+            int movieID=Integer.parseInt(txtMovieID);
+            int screenID=Integer.parseInt(txtScreenID);
+            TimeDAO dao=new TimeDAO();
+            dao.showAllTime(movieID, screenID);
+            list=dao.getShowTimes();
             if(!list.isEmpty()){
-                request.setAttribute("LIST_SEAT", list);
-                System.out.println(list);
+                request.setAttribute("LIST_SHOWTIME", list);
             }
         }catch(ClassNotFoundException|SQLException e){
             System.out.println(e);
         }
         finally{
-            RequestDispatcher rd= request.getRequestDispatcher("ShowDateTImeUserServlet?txtMovieID="+txtMovieID+"&screenID="+txtID);
+            RequestDispatcher rd= request.getRequestDispatcher("DispatchServlet?btAction=Buy ticket");
             rd.forward(request, response);
         }
     }
