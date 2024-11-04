@@ -11,54 +11,121 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Film Booking Page</title>
         <style>
-            .container {
-                width: 80%;
-                margin: 0 auto;
+            /* Reset một số thuộc tính mặc định */
+       *    {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
                 font-family: Arial, sans-serif;
             }
-            .screen {
+
+            /* Căn giữa và tạo kiểu cho container chính */
+            .container {
+                max-width: 900px;
+                margin: 50px auto;
+                padding: 30px;
+                background-color: #ffffff;
+                border: 1px solid #333;
+                border-radius: 10px;
                 text-align: center;
-                background-color: #eee;
-                padding: 10px;
+                color: #333;
+            }
+
+            /* Tiêu đề chính */
+            .container h1 {
+                font-size: 32px;
+                margin-bottom: 30px;
+                color: #000;
+            }
+
+            /* Kiểu cho các nhóm form */
+            .form-group {
                 margin-bottom: 20px;
+                text-align: left;
             }
+
+/* Các nhãn và select trong form */
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+                font-size: 18px;
+                color: #555;
+            }
+
+            .form-group select {
+                width: 100%;
+                padding: 12px;
+                font-size: 18px;
+                border: 1px solid #333;
+                border-radius: 6px;
+                background-color: #f9f9f9;
+                color: #333;
+            }
+
+            /* Vị trí của khu vực màn hình */
+            .screen {
+                    background-color: #333;
+                    color: #fff;
+                    padding: 15px;
+                    font-size: 20px;
+                    margin: 30px 0;
+                    border-radius: 6px;
+            }
+
+            /* Khu vực chỗ ngồi */
+            .seats {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+
+            /* Các ô chỗ ngồi */
             .seat {
-                display: inline-block;
-                width: 30px;
-                height: 30px;
-                margin: 5px;
-                background-color: #d1d1d1;
-                cursor: pointer;
-            }
+            width: 40px;
+            height: 40px;
+            background-color: #e0e0e0;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #333;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+                    }
+
+            /* Chỗ ngồi được chọn */
             .seat.selected {
-                background-color: #6c757d;
-                color: white;
+                background-color: #333;
+                color: #fff;
             }
+
+            /* Chỗ ngồi đã đặt */
             .seat.occupied {
-                background-color: #ff4d4d;
+                background-color: #777;
+                color: #fff;
                 cursor: not-allowed;
             }
-            .form-group {
-                margin-bottom: 15px;
-            }
-            label {
-                display: block;
-                margin-bottom: 5px;
-            }
-            select, button {
-                padding: 10px;
-                width: 100%;
-                box-sizing: border-box;
-            }
+
+            /* Nút đặt chỗ */
             button {
-                background-color: #007bff;
-                color: white;
+                padding: 12px 25px  ;
+                font-size: 20px;
+                background-color: #333;
+                color: #fff;
                 border: none;
+                border-radius: 6px;
                 cursor: pointer;
+                transition: background-color 0.3s;
             }
+
             button:hover {
-                background-color: #0056b3;
+               background-color: #555;
             }
+
         </style>
     </head>
     <body>
@@ -94,7 +161,7 @@
                     <div class="seat" id="seat<%=i%>"><%=i%></div>
                 <% } %>
             </div>
-
+            <br>
             <button type="button" onclick="bookSeats()">Book Now</button>
         </div>
 

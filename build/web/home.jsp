@@ -166,7 +166,8 @@ nav a:hover {
                                 <img src="${film.movieImage}" 
                                      width="200px" height="200px"  alt="Movie 1">
                                 <h3>${film.movieName}</h3>
-                                <p>Genre: ${movieGenre}</p>
+                                <p>Genre: ${film.movieGenre}</p>
+                                <br>
                                 <input type="submit" name="btAction" value="Play"/>
                             </div>
                         </form>
