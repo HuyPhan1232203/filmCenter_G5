@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DispatchServlet extends HttpServlet {
     private final String LOGIN_PAGE="login.html";
-    private final String BOOKING_PAGE="booking.jsp";
     private final String LOGIN_CONTROLLER="LoginServlet";
+    private final String SHOW_SCREEN_USER="ShowScreenUserServlet";
     private final String MOVIE_CONTROLLER="MovieServlet";
     private final String SIGNUP_CONTROLLER="SignInServlet";
     private final String MOVIECREATE_CONTROLLER="MovieCreateServlet";
@@ -31,6 +31,7 @@ public class DispatchServlet extends HttpServlet {
     private final String UPDATE_MOVIE_CONTROLLER="UpdateMovieServlet";
     private final String SCREEN_CONTROLLER="ScreenServlet";
     private final String CREATE_SCREEN_CONTROLLER="CreateScreenServlet";
+    private final String SHOW_SEAT_CONTROLLER="ShowSeatServlet";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -71,7 +72,7 @@ public class DispatchServlet extends HttpServlet {
                url=DETAIL_FOR_UPDATE_CONTROLLER;
            }
           else if(button.equals("Buy ticket")){
-               url=BOOKING_PAGE;
+               url=SHOW_SCREEN_USER;
            }
           else if(button.equals("Delete")){
                url=DELETE_MOVIE_CONTROLLER;
@@ -81,6 +82,9 @@ public class DispatchServlet extends HttpServlet {
            }
           else if(button.equals("Go to Manage Screen")){
                url=SCREEN_CONTROLLER;
+           }
+          else if(button.equals("Choose")){
+               url=SHOW_SEAT_CONTROLLER;
            }
        }finally{
            RequestDispatcher rd=request.getRequestDispatcher(url);

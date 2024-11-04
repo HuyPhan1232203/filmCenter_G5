@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +13,7 @@
         <title>Film Booking Page</title>
         <style>
             .container {
-                width: 80%;
+                width: 30%;
                 margin: 0 auto;
                 font-family: Arial, sans-serif;
             }
@@ -64,7 +65,7 @@
     <body>
         <div class="container">
             <h1>Book Your Film</h1>
-            
+
             <div class="form-group">
                 <label for="showtime">Showtime:</label>
                 <select id="showtime" name="showtime">
@@ -75,32 +76,36 @@
                     <option value="9:00 PM">9:00 PM</option>
                 </select>
             </div>
-            
+            <c:set var="ScreenList" value="${requestScope.SCREEN_LIST}"/>
             <div class="form-group">
                 <label for="screen">Screen (Room):</label>
-                <select id="screen" name="screen">
-                    <option value="Screen 1">Screen 1</option>
-                    <option value="Screen 2">Screen 2</option>
-                    <option value="Screen 3">Screen 3</option>
-                    <option value="Screen 4">Screen 4</option>
-                </select>
+                <form action="DispatchServlet">
+                    <select id="screen" name="screen">
+                        <c:forEach var="screen" items="${ScreenList}">
+                            <option value="${screen.screenNumber}">Screen ${screen.screenNumber}</option>
+                        </c:forEach>
+                    </select>
+                    <input type="submit" name="btAction" value="Choose"/>
+                </form>
             </div>
+            <c:set var="List" value="${requestScope.LIST_SEAT}"/>
+            <c:if test="${not empty List}">
+                <form action="DispatchServlet">
+                    <div class="screen">Screen (Front)</div>
 
-            <div class="screen">Screen (Front)</div>
+               
+                        <c:forEach var="seat" items="${List}">
+                            <div class="seat" id="seat${seat.seatNumber}">${seat.seatNumber}</div>
+                        </c:forEach>
 
-            <div class="seats">
-                <%-- Loop through seats using a for loop --%>
-                <% for(int i = 1; i <= 50; i++) { %>
-                    <div class="seat" id="seat<%=i%>"><%=i%></div>
-                <% } %>
-            </div>
-
-            <button type="button" onclick="bookSeats()">Book Now</button>
+                    <button type="button" onclick="bookSeats()">Book Now</button>
+                </form>
+            </c:if>
         </div>
 
         <script>
             document.querySelectorAll('.seat').forEach(seat => {
-                seat.addEventListener('click', function() {
+                seat.addEventListener('click', function () {
                     if (!this.classList.contains('occupied')) {
                         this.classList.toggle('selected');
                     }
@@ -112,6 +117,7 @@
                 document.querySelectorAll('.seat.selected').forEach(seat => {
                     selectedSeats.push(seat.textContent);
                 });
+                console.log(selectedSeats);
                 alert('You have booked seats: ' + selectedSeats.join(', '));
             }
         </script>
