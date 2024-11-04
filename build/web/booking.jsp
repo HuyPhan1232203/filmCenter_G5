@@ -12,54 +12,151 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Film Booking Page</title>
         <style>
-            .container {
-                width: 30%;
-                margin: 0 auto;
-                font-family: Arial, sans-serif;
-            }
-            .screen {
-                text-align: center;
-                background-color: #eee;
+            
+            
+       /* Reset một số thuộc tính mặc định */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Căn giữa và tạo kiểu cho container chính */
+.container {
+    max-width: 650px;
+    margin: 500px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 1px solid #333;
+    border-radius: 10px;
+    text-align: center;
+    color: #333;
+}
+
+/* Tiêu đề chính */
+.container h1 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #000;
+}
+
+/* Kiểu cho các nhóm form */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Các nhãn và select trong form */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #555;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Khu vực màn hình */
+.screen {
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    font-size: 20px;
+    margin: 30px 0;
+    border-radius: 6px;
+}
+
+/* Khu vực chỗ ngồi */
+.seats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Các ô chỗ ngồi */
+.seat {
+    width: 50px;
+    height: 50px;
+    background-color: #e0e0e0;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #333;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;        /*chữ form nè*/
+    transition: background-color 0.2s;
+       display: inline-block;
+                width: 50px;
+                height: 50px;
+                margin: 2px;
                 padding: 10px;
-                margin-bottom: 20px;
-            }
-            .seat {
-                display: inline-block;
-                width: 30px;
-                height: 30px;
-                margin: 5px;
                 background-color: #d1d1d1;
                 cursor: pointer;
-            }
-            .seat.selected {
-                background-color: #6c757d;
-                color: white;
-            }
-            .seat.occupied {
-                background-color: #ff4d4d;
-                cursor: not-allowed;
-            }
-            .form-group {
-                margin-bottom: 15px;
-            }
-            label {
-                display: block;
-                margin-bottom: 5px;
-            }
-            select, button {
-                padding: 10px;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            button {
-                background-color: #007bff;
-                color: white;
-                border: none;
-                cursor: pointer;
-            }
-            button:hover {
-                background-color: #0056b3;
-            }
+
+}
+
+/* Chỗ ngồi được chọn */
+.seat.selected {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Chỗ ngồi đã đặt */
+.seat.occupied {
+    background-color: #777;
+    color: #fff;
+    cursor: not-allowed;
+}
+
+/* Nút chọn màn hình */
+input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+input[type="submit"]:hover {
+    background-color: #555;
+}
+
+/* Nút đặt chỗ */
+button {
+    padding: 12px 25px;
+    font-size: 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+            
+            
         </style>
     </head>
     <body>
@@ -90,14 +187,14 @@
             </div>
             <c:set var="List" value="${requestScope.LIST_SEAT}"/>
             <c:if test="${not empty List}">
-                <form action="DispatchServlet">
+                <form  action="DispatchServlet">
                     <div class="screen">Screen (Front)</div>
 
                
                         <c:forEach var="seat" items="${List}">
-                            <div class="seat" id="seat${seat.seatNumber}">${seat.seatNumber}</div>
+                            <div  class="seat" id="seat${seat.seatNumber}">${seat.seatNumber}</div>
                         </c:forEach>
-
+                            <br>
                     <button type="button" onclick="bookSeats()">Book Now</button>
                 </form>
             </c:if>
