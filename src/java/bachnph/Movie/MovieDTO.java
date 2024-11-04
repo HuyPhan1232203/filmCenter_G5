@@ -10,11 +10,6 @@ package bachnph.Movie;
  * @author Admin
  */
 public class MovieDTO {
-    
-    
-    
-  
-    
     int movieID;
     String movieName, movieImage ;
     int movieDuration;

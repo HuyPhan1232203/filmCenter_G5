@@ -5,9 +5,10 @@
  */
 package huypn.controller;
 
+import huypn.Screen.ScreenDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,20 +19,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hien
  */
-public class DispatchServlet extends HttpServlet {
-    private final String LOGIN_PAGE="login.html";
-    private final String BOOKING_PAGE="booking.jsp";
-    private final String LOGIN_CONTROLLER="LoginServlet";
-    private final String MOVIE_CONTROLLER="MovieServlet";
-    private final String SIGNUP_CONTROLLER="SignInServlet";
-    private final String MOVIECREATE_CONTROLLER="MovieCreateServlet";
-    private final String DETAIL_CONTROLLER="ShowDetailServlet";
-    private final String DELETE_MOVIE_CONTROLLER="MovieDeleteServlet";
-    private final String DETAIL_FOR_UPDATE_CONTROLLER="ShowDetailForUpdateServlet";
-    private final String UPDATE_MOVIE_CONTROLLER="UpdateMovieServlet";
-    private final String SCREEN_CONTROLLER="ScreenServlet";
-    private final String CREATE_SCREEN_CONTROLLER="CreateScreenServlet";
-    
+@WebServlet(name = "UpdateScreenServlet", urlPatterns = {"/UpdateScreenServlet"})
+public class UpdateScreenServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,48 +34,24 @@ public class DispatchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       String button = request.getParameter("btAction");
-       String url=LOGIN_PAGE;
-       try{
-           if(button==null){
-               
-           }else if(button.equals("Login")){
-               url=LOGIN_CONTROLLER;
-           }
-           else if(button.equals("Go to Manage Movie")){
-               url=MOVIE_CONTROLLER;
-           }
-          else if(button.equals("Sign Up")){
-               url=SIGNUP_CONTROLLER;
-           }
-          else if(button.equals("Add Movie")){
-               url=MOVIECREATE_CONTROLLER;
-           }
-          else if(button.equals("Add Screen")){
-               url=CREATE_SCREEN_CONTROLLER;
-           }
-          else if(button.equals("Play")){
-               url=DETAIL_CONTROLLER;
-           }
-          else if(button.equals("Update")){
-               url=DETAIL_FOR_UPDATE_CONTROLLER;
-           }
-          else if(button.equals("Buy ticket")){
-               url=BOOKING_PAGE;
-           }
-          else if(button.equals("Delete")){
-               url=DELETE_MOVIE_CONTROLLER;
-           }
-          else if(button.equals("Save")){
-               url=UPDATE_MOVIE_CONTROLLER;
-           }
-          else if(button.equals("Go to Manage Screen")){
-               url=SCREEN_CONTROLLER;
-           }
-       }finally{
-           RequestDispatcher rd=request.getRequestDispatcher(url);
-           rd.forward(request, response);
-       }
+        String txtNumber = request.getParameter("screenNumber");
+        String totalSeat = request.getParameter("totalSeat");
+        String txtScreenID = request.getParameter("txtScreenID");
+        String url = "DispatchServlet?btAction=Go to Manage Screen";
+        try {
+            int number = Integer.parseInt(txtNumber);
+            int seat = Integer.parseInt(totalSeat);
+            int id = Integer.parseInt(txtScreenID);
+            System.out.println(number);
+            System.out.println(seat);
+            System.out.println(id);
+            ScreenDAO dao = new ScreenDAO();
+            dao.updateScreen(id, number, seat);
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            response.sendRedirect(url);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

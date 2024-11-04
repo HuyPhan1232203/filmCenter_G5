@@ -90,31 +90,32 @@
                 <!-- Manage Movies -->
                 <form action="DispatchServlet" method="POST">
                     <div class="card">
-                    <h2>Manage Movies</h2>
-                    <p>View and manage the list of current movies. Add, edit or remove movies that are showing in the cinema.</p>
-                    <input type="submit" name="btAction" value="Go to Manage Movie"></input>
-                </div>
+                        <h2>Manage Movies</h2>
+                        <p>View and manage the list of current movies. Add, edit or remove movies that are showing in the cinema.</p>
+                        <input type="submit" name="btAction" value="Go to Manage Movie"></input>
+                    </div>
 
-                <!-- View Bookings -->
-                <div class="card">
-                    <h2>Current Bookings</h2>
-                    <p>Check the current bookings made by users. See the status and details of bookings.</p>
-                    <a href="viewBookings.jsp">Go to Bookings</a>
-                </div>
+                    <!-- View Bookings -->
+                    <div class="card">
+                        <h2>Manage Screen</h2>
+                        <p>Check the current bookings made by users. See the status and details of bookings.</p>
+                        <input type="submit" name="btAction" value="Go to Manage Screen"></input>
 
-                <!-- Cinema Statistics -->
-                <div class="card">
-                    <h2>Cinema Statistics</h2>
-                    <p>View statistics such as total revenue, total bookings, and the most popular movies.</p>
-                    <a href="cinemaStats.jsp">View Statistics</a>
-                </div>
+                    </div>
 
-                <!-- Admin Info -->
-                <div class="card">
-                    <h2>Admin Information</h2>
-                    <p>Check your admin details or change your account settings.</p>
-                    <a href="adminInfo.jsp">Go to Admin Information</a>
-                </div>
+                    <!-- Cinema Statistics -->
+                    <div class="card">
+                        <h2>Cinema Statistics</h2>
+                        <p>View statistics such as total revenue, total bookings, and the most popular movies.</p>
+                        <a href="cinemaStats.jsp">View Statistics</a>
+                    </div>
+
+                    <!-- Admin Info -->
+                    <div class="card">
+                        <h2>Admin Information</h2>
+                        <p>Check your admin details or change your account settings.</p>
+                        <a href="adminInfo.jsp">Go to Admin Information</a>
+                    </div>
                 </form>
             </div>
         </div>
