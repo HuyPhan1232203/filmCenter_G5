@@ -181,10 +181,21 @@
                         <td>${screen.totalSeat}</td>
                         <td><form action="ShowDetailForUpdateScreenServlet">
                                 <input name="btAction" value="Update" type="submit"/>
+                                
                                 <input name="screenID" value="${screen.screenID}" hidden/>
-                            </form></td>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="DispatchServlet">                                
+                                <input name="btAction" value="Manage Seat" type="submit"/>    
+                                <input name="screenID" value="${screen.screenID}" hidden/>
+                            </form>
+                        </td>
+                    
                     </tr>
                 </c:forEach>
+                 
+                    
             </table>
         </c:if>
         <c:if test="${param.open == 'true'}">
@@ -196,6 +207,6 @@
                 <input type="submit" class="save-button" name="btAction" value="Save"></input>
             </form>
         </c:if>
-
+           
     </body>
 </html>

@@ -32,7 +32,7 @@ public class DispatchServlet extends HttpServlet {
     private final String SCREEN_CONTROLLER="ScreenServlet";
     private final String CREATE_SCREEN_CONTROLLER="CreateScreenServlet";
     private final String SHOW_SEAT_CONTROLLER="ShowSeatServlet";
-    
+    private final String MANAGE_SEAT_CONTROLLER="ManageSeatServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -86,6 +86,10 @@ public class DispatchServlet extends HttpServlet {
           else if(button.equals("Choose")){
                url=SHOW_SEAT_CONTROLLER;
            }
+           else if(button.equals("Manage Seat")){
+               url=MANAGE_SEAT_CONTROLLER;
+           }
+           
        }finally{
            RequestDispatcher rd=request.getRequestDispatcher(url);
            rd.forward(request, response);
