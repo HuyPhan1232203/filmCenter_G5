@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bachnph.Seat;
+package hauln.Seat;
 
 import huypn.util.DBHelper;
 import java.io.Serializable;

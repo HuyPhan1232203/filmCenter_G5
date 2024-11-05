@@ -32,17 +32,14 @@ public class BookingServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet BookingServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet BookingServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String showtime=request.getParameter("showtime");
+        String screen=request.getParameter("screen");
+        int txtMovieID=Integer.parseInt(request.getParameter("txtMovieID"));
+        int txtUserID=Integer.parseInt(request.getParameter("txtUserID"));
+        try{
+            
+        }finally{
+            
         }
     }
 

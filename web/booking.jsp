@@ -100,7 +100,6 @@
                 </c:forEach>
 
                 <input name="txtUserID" value="${sessionScope.USER.userID}" hidden/>
-                <input name="txtMovieID" value="${sessionScope.MOVIE_DETAIL.movieID}" hidden/>
                 <input type="submit" class="button" name="btAction" value="Book Now"/>
             </form>
         </c:if>
