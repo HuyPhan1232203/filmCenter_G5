@@ -78,10 +78,13 @@
         <!-- Navigation Bar -->
         <div class="navbar">
             <a href="manageMovies.jsp">Manage Movies</a>
-            <a href="viewBookings.jsp">View Bookings</a>
+            <a href="viewBookings.jsp">Manage Screen</a>
             <a href="cinemaStats.jsp">Cinema Stats</a>
-            <a href="logout.jsp">Logout</a>
-        </div>
+           </div>  
+             <form class="navbar" action="DispatchServlet" method="POST">
+                <input type="submit" value="Logout"/> Log Out
+                  </form>
+       
 
         <!-- Main Content Section -->
         <div class="container">
