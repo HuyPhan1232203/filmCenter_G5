@@ -153,19 +153,17 @@ button {
 button:hover {
     background-color: #555;
 }
-
-        </style>
+                </style>
     </head>
     <body>
-        <form action="DispatchServlet">
-            
         <div class="container">
             <h1>Book Your Film</h1>
 
             <div class="form-group">
-                <label for="showtime">Showtime:</label>
+                <form action="DispatchServlet">
                     <c:set var="List" value="${requestScope.LIST_SHOWTIME}"/>
                     <c:if test="${not empty List}">
+                        <label for="showtime">Showtime:</label>
                         <select id="showtime" name="showtime">
                             <c:forEach var="time" items="${List}">
                                 <option value="${time.dateTime}">${time.dateTime}</option>
@@ -188,20 +186,15 @@ button:hover {
             <c:set var="List" value="${requestScope.LIST_SEAT}"/>
             <c:if test="${not empty List}">
                 <div class="screen">Screen (Front)</div>
-
-
                 <c:forEach var="seat" items="${List}">
-                    <div class="seat" id="seat${seat.seatNumber}">${seat.seatNumber}</div>
+                    <div class="seat"  id="seat${seat.seatNumber}">${seat.seatNumber}</div>
                 </c:forEach>
 
                 <input name="txtUserID" value="${sessionScope.USER.userID}" hidden/>
-                <input name="txtMovieID" value="${sessionScope.MOVIE_DETAIL.movieID}" hidden/>
-                <br>
-                <input type="submit" class="button" name="btAction" value="Book Now"/>
+                <input type="submit" onclick="bookSeats()" class="button" name="btAction" value="Book Now"/>
+            </form>
         </c:if>
     </div>
-        </form>
-
     <script>
         document.querySelectorAll('.seat').forEach(seat => {
             seat.addEventListener('click', function () {
@@ -210,7 +203,14 @@ button:hover {
                 }
             });
         });
-
+        function bookSeats() {
+                let selectedSeats = [];
+                document.querySelectorAll('.seat.selected').forEach(seat => {
+                    selectedSeats.push(seat.textContent);
+                });
+                console.log(selectedSeats);
+                alert('You have booked seats: ' + selectedSeats.join(', '));
+            }
     </script>
 </body>
 </html>

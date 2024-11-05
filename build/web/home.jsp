@@ -148,13 +148,6 @@ nav a:hover {
                 <input type="submit" value="Logout"/>
             </form>
         </header>
-
-        <nav>
-            <a href="home.jsp">Home</a>
-            <a href="movie.jsp">Movies</a>
-            <a href="categories.jsp">Categories</a>
-            <a href="contact.jsp">Contact</a>
-        </nav>
         <div class="container">
             <section class="featured">
                 <c:set var="movieList" value="${requestScope.movieList}"/>

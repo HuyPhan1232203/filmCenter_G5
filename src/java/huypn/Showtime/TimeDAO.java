@@ -45,6 +45,7 @@ public class TimeDAO implements Serializable{
                 stm.setInt(2, screen);
                 rs = stm.executeQuery();
                 while (rs.next()) {
+                    System.out.println("resultTime");
                     int ScreenID = rs.getInt("ScreenID");
                     int ShowtimeID = rs.getInt("ShowtimeID");
                     int MovieID = rs.getInt("MovieID");

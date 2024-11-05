@@ -54,18 +54,23 @@
                 width: 100%;
             }
             .navbar {
-                padding: 10px;
+                padding: 20px;
                 background-color: #222;
                 text-align: center;
             }
-            .navbar a {
+            .button{
                 color: white;
                 text-decoration: none;
                 margin: 0 15px;
                 font-size: 18px;
+                padding:10px;
+                background-color: #ccc;
+                color:#000;
+                border: 1px solid #ccc;
             }
-            .navbar a:hover {
+            .button:hover {
                 text-decoration: underline;
+                background-color: #aaa;
             }
         </style>
     </head>
@@ -74,18 +79,13 @@
         <header>
             <h1>Welcome to the Cinema Admin Dashboard</h1>
         </header>
-
+          <div class="navbar">
         <!-- Navigation Bar -->
-        <div class="navbar">
-            <a href="manageMovies.jsp">Manage Movies</a>
-            <a href="viewBookings.jsp">Manage Screen</a>
-            <a href="cinemaStats.jsp">Cinema Stats</a>
-           </div>  
-             <form class="navbar" action="DispatchServlet" method="POST">
-                <input type="submit" value="Logout"/> Log Out
-                  </form>
-       
-
+      
+        <form action="DispatchServlet">
+            <input value="Logout" class="button" name="btAction" type="submit"/>
+        </form>
+          </div>
         <!-- Main Content Section -->
         <div class="container">
             <!-- Dashboard Cards -->
@@ -106,19 +106,7 @@
 
                     </div>
 
-                    <!-- Cinema Statistics -->
-                    <div class="card">
-                        <h2>Cinema Statistics</h2>
-                        <p>View statistics such as total revenue, total bookings, and the most popular movies.</p>
-                        <a href="cinemaStats.jsp">View Statistics</a>
-                    </div>
-
-                    <!-- Admin Info -->
-                    <div class="card">
-                        <h2>Admin Information</h2>
-                        <p>Check your admin details or change your account settings.</p>
-                        <a href="adminInfo.jsp">Go to Admin Information</a>
-                    </div>
+                   
                 </form>
             </div>
         </div>

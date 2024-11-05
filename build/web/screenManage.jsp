@@ -16,161 +16,128 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Manage Screen</title>
         <style>
-           /* Reset cơ bản */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            h1 {
+                text-align: center;
+                color: #333;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+            }
+            table, th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+            th {
+                background-color: #f2f2f2;
+                text-align: center;
+            }
+            td {
+                text-align: center;
+            }
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin: 20px 0;
+            }
+            label {
+                font-weight: bold;
+            }
+            input[type="text"], input[type="number"], textarea {
+                padding: 8px;
+                width: 100%;
+            }
+            button {
+                padding: 10px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+            button.delete {
+                background-color: #d9534f;
+            }
+            button.update {
+                background-color: #5bc0de;
+            }
+            button:hover {
+                opacity: 0.9;
+            }
+            #Form{
+                display: none
+            }
+            /* Styles for the movie form */
+            #movie-form {
+                width: 300px; /* Set a width for the form */
+                margin: 20px auto; /* Center the form horizontally */
+                padding: 20px; /* Add padding inside the form */
+                border: 1px solid #ccc; /* Light gray border */
+                border-radius: 8px; /* Rounded corners */
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+                background-color: #f9f9f9; /* Light background color */
+            }
 
-/* Căn giữa nội dung chính */
-body {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    color: #333;
-}
+            /* Styles for the input fields */
+            .form-input {
+                width: 100%; /* Make the input fields full width */
+                padding: 10px; /* Add padding inside the fields */
+                margin: 10px 0; /* Space between fields */
+                border: 1px solid #ddd; /* Light border for input fields */
+                border-radius: 4px; /* Slightly rounded corners */
+                box-sizing: border-box; /* Include padding and border in width */
+                transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
+            }
 
-/* Tiêu đề trang */
-h1, h2 {
-    text-align: center;
-    color: #000;
-    margin-bottom: 20px;
-}
+            /* Input fields on focus */
+            .form-input:focus {
+                border-color: #007bff; /* Change border color on focus */
+                outline: none; /* Remove default outline */
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow on focus */
+            }
 
-/* Nút "Add Screen" */
-#showFormButton {
-    display: block;
-    width: 150px;
-    margin: 10px auto 20px;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+            /* Optional: Add some hover effect */
+            .form-input:hover {
+                border-color: #007bff; /* Change border color on hover */
+            }
 
-#showFormButton:hover {
-    background-color: #555;
-}
+            /* Responsive design */
+            @media (max-width: 480px) {
+                .movie-form {
+                    width: 90%; /* Full width on smaller screens */
+                }
+            }
 
-/* Form thêm màn hình */
-#Form {
-    display: none;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border: 1px solid #333;
-    border-radius: 10px;
-    margin: 0 auto 20px;
-    max-width: 500px;
-}
+            .save-button {
+                width: 100%; /* Full width for the button */
+                padding: 10px; /* Padding inside the button */
+                margin-top: 10px; /* Space above the button */
+                border: none; /* Remove default border */
+                border-radius: 4px; /* Slightly rounded corners */
+                background-color: #007bff; /* Bootstrap primary color */
+                color: white; /* White text color */
+                font-size: 16px; /* Increase font size */
+                cursor: pointer; /* Change cursor to pointer on hover */
+                transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+            }
 
-#Form h2 {
-    text-align: center;
-    color: #333;
-}
+            /* Button hover effect */
+            .save-button:hover {
+                background-color: #0056b3; /* Darker shade on hover */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+            }
 
-label {
-    display: block;
-    font-size: 16px;
-    color: #555;
-    margin-top: 10px;
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    font-size: 14px;
-    border: 1px solid #333;
-    border-radius: 6px;
-    background-color: #ffffff;
-    color: #333;
-}
-
-input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-input[type="submit"]:hover {
-    background-color: #555;
-}
-
-/* Bảng danh sách màn hình */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table th, table td {
-    padding: 12px;
-    border: 1px solid #333;
-    text-align: center;
-}
-
-table th {
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
-}
-
-table td {
-    background-color: #f9f9f9;
-    color: #333;
-}
-
-/* Form chỉnh sửa màn hình */
-#movie-form {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border: 1px solid #333;
-    border-radius: 10px;
-    margin-top: 20px;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.form-input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    font-size: 14px;
-    border: 1px solid #333;
-    border-radius: 6px;
-    background-color: #ffffff;
-    color: #333;
-}
-
-.save-button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.save-button:hover {
-    background-color: #555;
-}
-
+            /* Button focus effect */
+            .save-button:focus {
+                outline: none; /* Remove default outline */
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow on focus */
+            }
         </style>
 
     </head>
@@ -206,8 +173,7 @@ table td {
                     <th>Screen Number</th>
                     <th>Total Seats</th>
                     <th>Action</th>
-                    <th>SEAT</th>
-                </tr>
+                    </tr>
                 <c:forEach var="screen" items="${List}">
                     <tr>
                         <td>${screen.screenID}</td>
@@ -217,10 +183,6 @@ table td {
                                 <input name="btAction" value="Update" type="submit"/>
                                 <input name="screenID" value="${screen.screenID}" hidden/>
                             </form></td>
-                            <td><form action="DispatchServlet" method="POST">
-                               <input name="btAction" value="Manage Seat" type="submit"/>
-                               </form>
-                            </td>    
                     </tr>
                 </c:forEach>
             </table>

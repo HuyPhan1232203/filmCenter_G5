@@ -38,7 +38,7 @@ public class ShowDateTImeUserServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String txtMovieID=request.getParameter("txtMovieID");
-        String txtScreenID=request.getParameter("screenID");
+        String txtScreenID=request.getParameter("screen");
         List<TimeDTO>list=null;
         try{
             int movieID=Integer.parseInt(txtMovieID);
