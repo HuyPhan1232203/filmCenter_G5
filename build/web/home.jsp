@@ -167,7 +167,6 @@ nav a:hover {
                                      width="200px" height="200px"  alt="Movie 1">
                                 <h3>${film.movieName}</h3>
                                 <p>Genre: ${film.movieGenre}</p>
-                                <br>
                                 <input type="submit" name="btAction" value="Play"/>
                             </div>
                         </form>
